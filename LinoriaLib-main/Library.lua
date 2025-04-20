@@ -105,10 +105,10 @@ function Library:SafeCallback(f, ...)
         local _, i = event:find(":%d+: ");
 
         if not i then
-            return Library:Notify(event);
+            return getgenv().notificationsEnabled and Library:Notify(event);
         end;
 
-        return Library:Notify(event:sub(i + 1), 3);
+        return getgenv().notificationsEnabled and Library:Notify(event:sub(i + 1), 3);
     end;
 end;
 
@@ -770,12 +770,11 @@ do
 
             ContextMenu:AddOption('Copy color', function()
                 Library.ColorClipboard = ColorPicker.Value
-                Library:Notify('Copied color!', 2)
             end)
 
             ContextMenu:AddOption('Paste color', function()
                 if not Library.ColorClipboard then
-                    return Library:Notify('You have not copied a color!', 2)
+                    return 
                 end
                 ColorPicker:SetValueRGB(Library.ColorClipboard)
             end)
@@ -783,12 +782,10 @@ do
 
             ContextMenu:AddOption('Copy HEX', function()
                 pcall(setclipboard, ColorPicker.Value:ToHex())
-                Library:Notify('Copied hex code to clipboard!', 2)
             end)
 
             ContextMenu:AddOption('Copy RGB', function()
                 pcall(setclipboard, table.concat({ math.floor(ColorPicker.Value.R * 255), math.floor(ColorPicker.Value.G * 255), math.floor(ColorPicker.Value.B * 255) }, ', '))
-                Library:Notify('Copied RGB values to clipboard!', 2)
             end)
 
         end
