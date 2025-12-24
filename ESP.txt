@@ -13,9 +13,9 @@ local ESP = {
     TeamMates = true,
     Players = true,
     
-    -- [[ NEW SETTING ]] --
+
     HealthBars = true, 
-    -- [[ END NEW SETTING ]] --
+
 
     Objects = setmetatable({}, {__mode="kv"}),
     Overrides = {}
@@ -225,7 +225,7 @@ function boxBase:Update()
         self.Components.Quad.Visible = false
     end
 
-    -- [[ HEALTH BAR LOGIC ]] --
+
     if ESP.HealthBars then
         if OnScreen then
             local hum = self.Object:FindFirstChildOfClass("Humanoid")
@@ -267,7 +267,7 @@ function boxBase:Update()
         self.Components.HealthBar.Visible = false
         self.Components.HealthBarOutline.Visible = false
     end
-    -- [[ END HEALTH BAR LOGIC ]] --
+
 
     if ESP.Names then
         local TagPos, Vis5 = WorldToViewportPoint(cam, locs.TagPos.p)
@@ -447,3 +447,4 @@ game:GetService("RunService").RenderStepped:Connect(function()
 end)
 
 return ESP
+
